@@ -96,55 +96,61 @@
         {#if error}
             <div class="error">{error}</div>
         {:else if current}
-            <div class="temp">{current.temperature_2m}°</div>
-            <div class="description">{current.description}</div>
-            <br />
-            <div class="stats">
-                <div class="col">
-                    <div>
-                        humi <span class="value"
-                            >{current.relative_humidity_2m}%</span
-                        >
+            <div class="no-error">
+                <div class="left">
+                    <div class="temp-box">
+                        <div class="temp">{current.temperature_2m}°</div>
+                        <div class="description">{current.description}</div>
                     </div>
-                    <div>
-                        prec <span class="value"
-                            >{current.precipitation_probability}%</span
-                        >
-                    </div>
-                </div>
-                <div class="col">
-                    <div>
-                        wind <span class="value"
-                            >{current.wind_speed_10m} {settings.speedUnit}</span
-                        >
-                    </div>
-                    <div>
-                        feel <span class="value"
-                            >{current.apparent_temperature}°</span
-                        >
-                    </div>
-                </div>
-            </div>
-            <br />
-            <div class="forecast">
-                <div class="col">
-                    {#each forecast as forecast}
-                        <div class="forecast-time">
-                            {forecast.formattedTime}
+                    <!-- <br /> -->
+                    <div class="stats">
+                        <div>
+                            humi <span class="value"
+                                >{current.relative_humidity_2m}%</span
+                            >
                         </div>
-                    {/each}
-                </div>
-                <div class="col">
-                    {#each forecast as forecast}
-                        <div class="forecast-temp">{forecast.temperature}°</div>
-                    {/each}
-                </div>
-                <div class="col">
-                    {#each forecast as forecast}
-                        <div class="forecast-weather">
-                            {forecast.description}
+                        <div>
+                            prec <span class="value"
+                                >{current.precipitation_probability}%</span
+                            >
                         </div>
-                    {/each}
+                        <div>
+                            wind <span class="value"
+                                >{current.wind_speed_10m}
+                                {settings.speedUnit}</span
+                            >
+                        </div>
+                        <div>
+                            feel <span class="value"
+                                >{current.apparent_temperature}°</span
+                            >
+                        </div>
+                    </div>  
+                </div>
+                <div class="right">
+                    <div class="forecast">
+                        <div class="col">
+                            {#each forecast as forecast}
+                                <div class="forecast-time">
+                                    {forecast.formattedTime}
+                                </div>
+                            {/each}
+                        </div>
+                        <div class="col">
+                            {#each forecast as forecast}
+                                <div class="forecast-temp">
+                                    {forecast.temperature}°
+                                </div>
+                            {/each}
+                        </div>
+                        <div class="col">
+                            {#each forecast as forecast}
+                                <div class="forecast-weather">
+                                    {forecast.description}
+                                </div>
+                            {/each}
+                        </div>
+                    </div>
                 </div>
             </div>
         {/if}
@@ -155,22 +161,28 @@
     .panel-wrapper {
         flex-shrink: 0;
     }
+    .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 3rem;
+    }
+    .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
     .temp {
-        font-size: 2rem;
+        font-size: 1.75rem;
         font-weight: 300;
         color: var(--txt-1);
         line-height: 2.625rem;
     }
     .description {
-        font-size: 1.25rem;
+        font-size: 1rem;
         color: var(--txt-3);
     }
     .value {
         color: var(--txt-1);
-    }
-    .stats {
-        display: flex;
-        gap: 1.5rem;
     }
     .forecast {
         display: flex;
@@ -185,5 +197,10 @@
     }
     .forecast-weather {
         color: var(--txt-3);
+    }
+    .no-error {
+        display: flex;
+        justify-content: space-between;
+        /* align-items: end; */
     }
 </style>
